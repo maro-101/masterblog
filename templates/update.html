@@ -1,23 +1,29 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Update Post</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Update Blog Post</title>
 </head>
 <body>
     <h1>Update Blog Post</h1>
-    <form action="/update/{{ post.id }}" method="POST">
-        <label for="author">Author:</label>
-        <!-- Pre-fill the input using value="{{ post.author }}" -->
-        <input type="text" id="author" name="author" value="{{ post.author }}" required><br><br>
 
-        <label for="title">Title:</label>
-        <input type="text" id="title" name="title" value="{{ post.title }}" required><br><br>
+    <!-- 1. The action attribute dynamically targets the update route for this specific post ID -->
+    <form action="{{ url_for('update', post_id=post['id']) }}" method="POST">
 
-        <label for="content">Content:</label>
-        <!-- Textareas don't have a value attribute; place the data between the tags -->
-        <textarea id="content" name="content" required>{{ post.content }}</textarea><br><br>
+        <label for="author">Author:</label><br>
+        <!-- 2. The value attribute pre-fills the current author -->
+        <input type="text" id="author" name="author" value="{{ post['author'] }}"><br><br>
 
-        <button type="submit">Update Post</button>
+        <label for="title">Title:</label><br>
+        <!-- The value attribute pre-fills the current title -->
+        <input type="text" id="title" name="title" value="{{ post['title'] }}"><br><br>
+
+        <label for="content">Content:</label><br>
+        <!-- Note: Textareas do not use a 'value' attribute; the dynamic content goes directly between the opening and closing tags -->
+        <textarea id="content" name="content">{{ post['content'] }}</textarea><br><br>
+
+        <input type="submit" value="Update">
     </form>
 </body>
 </html>

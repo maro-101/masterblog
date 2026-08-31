@@ -103,5 +103,24 @@ def update(post_id):
     # So display the update.html page
     return render_template('update.html', post=post)
 
+
+@app.route('/like/<int:post_id>')
+def like(post_id):
+    # 1. Fetch the current blog posts
+    blog_posts = load_posts()
+
+    # 2. Find the specific post and increment its likes
+    for post in blog_posts:
+        if post['id'] == post_id:
+            # If 'likes' doesn't exist yet, initialize it to 0 before adding 1
+            post['likes'] = post.get('likes', 0) + 1
+            break
+
+    # 3. Save the updated list back to the JSON file
+    save_posts(blog_posts)
+
+    # 4. Redirect back to the index page
+    return redirect(url_for('index'))
+
 if __name__ == '__main__':
     app.run(host="0.0.0.0", port=5000, debug=True)

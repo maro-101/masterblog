@@ -14,6 +14,7 @@
             <h2>{{ post.title }}</h2>
             <p class="author">By {{ post.author }}</p>
             <p class="content">{{ post.content }}</p>
+            <a href="/like/{{ post.id }}">Like ({{ post.likes | default(0) }})</a>
             <a href="/update/{{ post.id }}">Update</a>
             <a href="/delete/{{ post.id }}">Delete</a>
         </div>
